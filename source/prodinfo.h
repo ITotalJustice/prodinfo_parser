@@ -136,11 +136,11 @@ typedef struct
     uint8_t lcd_backlight_brightness_mapping[0xC];
     uint8_t _0x376C[0x4];
     
-    uint8_t ExtendedEccB233DeviceKey[0x50];
+    uint8_t extended_ecc_b233_device_key[0x50];
     uint8_t _0x37C0[0x10];
-    uint8_t ExtendedEccP256ETicketKey[0x50];
+    uint8_t extended_ecc_p256_etik_key[0x50];
     uint8_t _0x3820[0x10];
-    uint8_t ExtendedEccB233ETicketKey[0x50];
+    uint8_t extended_ecc_b233_etik_key[0x50];
     uint8_t _0x3880[0x10];
     uint8_t extended_rsa_2048_etik_key[0x240];
     uint8_t _0x3AD0[0x10];
@@ -152,9 +152,9 @@ typedef struct
     uint32_t lcd_vendor_id;
     uint8_t _0x3D64[0xC];
     
-    uint8_t ExtendedRsa2048DeviceKey[0x240];
+    uint8_t extended_rsa_2048_device_key[0x240];
     uint8_t _0x3FB0[0x10];
-    uint8_t Rsa2048DeviceCertificate[0x240];
+    uint8_t rsa_2048_device_cert[0x240];
     uint8_t _0x4200[0x10];
 
     uint8_t UsbTypeCPowerSourceCircuitVersion;
@@ -206,6 +206,15 @@ void display_device_id(prodinfo_t *prodinfo);
 
 
 //
+void dump_extended_ecc_b233_device_keyy(prodinfo_t *prodinfo);
+
+//
+void dump_extended_ecc_p256_etik_key(prodinfo_t *prodinfo);
+
+//
+void dump_extended_ecc_b233_etik_key(prodinfo_t *prodinfo);
+
+//
 void dump_extended_rsa_2048_etik_key(prodinfo_t *prodinfo);
 
 //
@@ -213,5 +222,11 @@ void dump_extended_ssl_key(prodinfo_t *prodinfo);
 
 //
 void dump_extended_gamecard_key(prodinfo_t *prodinfo);
+
+//
+void dump_extended_rsa_2048_device_key(prodinfo_t *prodinfo);
+
+//
+void dump_rsa_2048_device_cert(prodinfo_t *prodinfo);
 
 #endif

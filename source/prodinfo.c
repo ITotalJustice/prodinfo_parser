@@ -136,9 +136,24 @@ void dump_amiibo_key()
 void dump_product_model()
 {}
 
+void dump_extended_ecc_b233_device_keyy(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->extended_ecc_b233_device_key, 0x50, "extended_ecc_b233_device_key");
+}
+
+void dump_extended_ecc_p256_etik_key(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->extended_ecc_p256_etik_key, 0x50, "extended_ecc_p256_etik_key");
+}
+
+void dump_extended_ecc_b233_etik_key(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->extended_ecc_b233_etik_key, 0x50, "extended_ecc_b233_etik_key");
+}
+
 void dump_extended_rsa_2048_etik_key(prodinfo_t *prodinfo)
 {
-    dump(prodinfo->extended_rsa_2048_etik_key, 0x130, "extended_rsa_2048_etik_key");
+    dump(prodinfo->extended_rsa_2048_etik_key, 0x240, "extended_rsa_2048_etik_key");
 }
 
 void dump_extended_ssl_key(prodinfo_t *prodinfo)
@@ -149,4 +164,14 @@ void dump_extended_ssl_key(prodinfo_t *prodinfo)
 void dump_extended_gamecard_key(prodinfo_t *prodinfo)
 {
     dump(prodinfo->extended_gamecard_key, 0x130, "extended_gamecard_key");
+}
+
+void dump_extended_rsa_2048_device_key(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->extended_rsa_2048_device_key, 0x240, "extended_rsa_2048_device_key");
+}
+
+void dump_rsa_2048_device_cert(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->rsa_2048_device_cert, 0x240, "rsa_2048_device_cert");
 }
