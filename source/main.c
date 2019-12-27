@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     prodinfo_t *prodinfo = calloc(1, sizeof(prodinfo_t));
     read_prodinfo(prodinfo, argv[1]);
     
-    display_device_id(prodinfo);
+    display_all(prodinfo);
 
     free(prodinfo);
     app_exit();

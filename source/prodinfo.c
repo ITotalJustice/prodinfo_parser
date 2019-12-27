@@ -20,6 +20,48 @@ void read_prodinfo(prodinfo_t *prodinfo, const char *file)
     fclose(f);
 }
 
+
+
+/*
+*   Display.
+*/
+
+void display_magic(prodinfo_t *prodinfo)
+{
+    printf("Magic:\t0x%X\n", prodinfo->magic);
+}
+
+void display_version(prodinfo_t *prodinfo)
+{
+    printf("Prodinfo Version:\t%u\n", prodinfo->version);
+}
+
+void display_model(prodinfo_t *prodinfo)
+{
+    printf("Prodinfo Model:\t%u\n", prodinfo->model);
+}
+
+void display_update_count(prodinfo_t *prodinfo)
+{
+    printf("Update Count:\t%u\n", prodinfo->upper_count);
+}
+
+void display_configuration_id(prodinfo_t *prodinfo)
+{
+    printf("Configuration ID:\t");
+    for (uint8_t i = 0; i < 0x1E; i++)
+        printf("%c", prodinfo->config_ld1[i]);
+    printf("\n");
+}
+
+void display_bd_address(prodinfo_t *prodinfo)
+{
+    printf("BD Address:\t%u\n", *prodinfo->bd_address);
+}
+
+void display_wlan_mac_address(prodinfo_t *prodinfo)
+{}
+
 void display_device_id(prodinfo_t *prodinfo)
 {
     printf("Device ID:\t");
@@ -28,17 +70,48 @@ void display_device_id(prodinfo_t *prodinfo)
     printf("\n");
 }
 
-void dump_magic()
+void display_battery_lot(prodinfo_t *prodinfo)
+{
+    printf("Battery Lot:\t");
+    for (uint8_t i = 0; i < 0x18; i++)
+        printf("%c", prodinfo->battery_lot[i]);
+    printf("\n");
+}
+
+void display_region_code(prodinfo_t *prodinfo)
+{
+    printf("Region Code: %u\n", prodinfo->region_code);
+}
+
+void display_product_model(prodinfo_t *prodinfo)
+{
+    printf("Product Model: %s\n", prodinfo->product_model == ProductModel_NX ? "NX" : "Copper");
+}
+
+void display_lcd_vendor_id(prodinfo_t *prodinfo)
 {}
 
-void dump_version()
-{}
+void display_all(prodinfo_t *prodinfo)
+{
+    display_magic(prodinfo);
+    display_version(prodinfo);
+    display_model(prodinfo);
+    display_update_count(prodinfo);
+    display_configuration_id(prodinfo);
+    display_bd_address(prodinfo);
+    display_wlan_mac_address(prodinfo);
+    display_device_id(prodinfo);
+    display_battery_lot(prodinfo);
+    display_region_code(prodinfo);
+    display_product_model(prodinfo);
+    display_lcd_vendor_id(prodinfo);
+}
 
-void dump_model()
-{}
 
-void dump_update_count()
-{}
+
+/*
+*   Dump.
+*/
 
 void dump_body_hash()
 {}
@@ -64,38 +137,60 @@ void dump_accelerometer_scale()
 void dump_gyroscope_scale()
 {}
 
-void dump_serial_num()
-{}
+void dump_serial_num(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->serial_num, 0x18, "serial_number");
+}
 
-void dump_ecc_p256_device_key()
-{}
+void dump_ecc_p256_device_key(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->ecc_p256_device_key, 0x30, "ecc_p256_device_key");
+}
 
-void dump_ecc_p256_device_cert()
-{}
+void dump_ecc_p256_device_cert(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->ecc_p256_device_cert, 0x180, "ecc_p256_device_cert");
+}
 
-void dump_ecc_b233_device_key()
-{}
+void dump_ecc_b233_device_key(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->ecc_b233_device_key, 0x30, "ecc_b233_device_key");
+}
 
-void dump_ecc_b233_device_cert()
-{}
+void dump_ecc_b233_device_cert(prodinfo_t *prodinfo)
+{
+    dump(&prodinfo->eec_b233_device_cert, 0x180, "eec_b233_device_cert");
+}
 
-void dump_ecc_p256_etik_key()
-{}
+void dump_ecc_p256_etik_key(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->ecc_p256_etik_key, 0x30, "ecc_p256_etik_key");
+}
 
-void dump_ecc_p256_etik_cert()
-{}
+void dump_ecc_p256_etik_cert(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->ecc_p256_etik_cert, 0x180, "ecc_p256_etik_key");
+}
 
-void dump_ecc_b233_etik_key()
-{}
+void dump_ecc_b233_etik_key(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->ecc_b233_etik_key, 0x30, "ecc_b233_etik_key");
+}
 
-void dump_ecc_b233_etik_cert()
-{}
+void dump_ecc_b233_etik_cert(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->ecc_b233_etik_cert, 0x180, "ecc_b233_etik_cert");
+}
 
-void dump_ssl_key()
-{}
+void dump_ssl_key(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->ssl_key, 0x130, "ssl_key");
+}
 
-void dump_ssl_cert()
-{}
+void dump_ssl_cert(prodinfo_t *prodinfo)
+{
+    dump(prodinfo->ssl_cert, prodinfo->ssl_cert_size, "ssl_cert");
+}
 
 void dump_ssl_cert_hash()
 {}
@@ -106,19 +201,19 @@ void dump_random_num()
 void dump_random_num_hash()
 {}
 
-void dump_gamecard_key()
+void dump_gamecard_key(prodinfo_t *prodinfo)
 {}
 
-void dump_gamecard_cert()
+void dump_gamecard_cert(prodinfo_t *prodinfo)
 {}
 
 void dump_gamecard_cert_hash()
 {}
 
-void dump_rsa_2048_etik_key()
+void dump_rsa_2048_etik_key(prodinfo_t *prodinfo)
 {}
 
-void dump_rsa_2048_etik_cert()
+void dump_rsa_2048_etik_cert(prodinfo_t *prodinfo)
 {}
 
 void dump_battery_lot()

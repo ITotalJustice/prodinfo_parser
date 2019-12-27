@@ -72,21 +72,21 @@ typedef struct
     uint8_t serial_num[0x18];
     uint8_t _0x0268[0x8];
 
-    uint8_t EccP256DeviceKey[0x30];
+    uint8_t ecc_p256_device_key[0x30];
     uint8_t _0x02A0[0x10];
-    uint8_t EccP256DeviceCertificate[0x180];
+    uint8_t ecc_p256_device_cert[0x180];
     uint8_t _0x0430[0x10];
-    uint8_t EccB233DeviceKey[0x30];
+    uint8_t ecc_b233_device_key[0x30];
     uint8_t _0x0470[0x10];
     eec_b233_device_cert_t eec_b233_device_cert;
     uint8_t _0x0600[0x10];
-    uint8_t EccP256ETicketKey[0x30];
+    uint8_t ecc_p256_etik_key[0x30];
     uint8_t _0x0640[0x10];
-    uint8_t EccP256ETicketCertificate[0x180];
+    uint8_t ecc_p256_etik_cert[0x180];
     uint8_t _0x07D0[0x10];
-    uint8_t EccB233ETicketKey[0x30];
+    uint8_t ecc_b233_etik_key[0x30];
     uint8_t _0x0810[0x10];
-    uint8_t EccB233ETicketCertificate[0x180];
+    uint8_t ecc_b233_etik_cert[0x180];
     uint8_t _0x09A0[0x10];
 
     uint8_t ssl_key[0x110];
@@ -204,6 +204,8 @@ void read_prodinfo(prodinfo_t *prodinfo, const char *file);
 //
 void display_device_id(prodinfo_t *prodinfo);
 
+//
+void display_all(prodinfo_t *prodinfo);
 
 //
 void dump_extended_ecc_b233_device_keyy(prodinfo_t *prodinfo);
