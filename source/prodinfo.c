@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+
 #include "prodinfo.h"
 #include "util.h"
 
@@ -13,11 +14,13 @@ bool check_if_cal_magic_valid(uint32_t magic)
     return false;
 }
 
-void read_prodinfo(prodinfo_t *prodinfo, const char *file)
+prodinfo_t * read_prodinfo(const char *file)
 {
+    prodinfo_t *prodinfo = calloc(1, sizeof(prodinfo_t));
     FILE *f = fopen(file, "rb");
     read_file(prodinfo, sizeof(prodinfo_t), 0, f);
     fclose(f);
+    return prodinfo;
 }
 
 
@@ -66,7 +69,7 @@ void display_device_id(prodinfo_t *prodinfo)
 {
     printf("Device ID:\t");
     for (uint8_t i = 0; i < DEVICE_ID_SIZE; i++)
-        printf("%c", prodinfo->eec_b233_device_cert.device.id[i]);
+        printf("%c", prodinfo->ecc_b233_device_cert.device.id[i]);
     printf("\n");
 }
 
@@ -159,7 +162,7 @@ void dump_ecc_b233_device_key(prodinfo_t *prodinfo)
 
 void dump_ecc_b233_device_cert(prodinfo_t *prodinfo)
 {
-    dump(&prodinfo->eec_b233_device_cert, 0x180, "eec_b233_device_cert");
+    dump(&prodinfo->ecc_b233_device_cert, 0x180, "eec_b233_device_cert");
 }
 
 void dump_ecc_p256_etik_key(prodinfo_t *prodinfo)
@@ -189,7 +192,7 @@ void dump_ssl_key(prodinfo_t *prodinfo)
 
 void dump_ssl_cert(prodinfo_t *prodinfo)
 {
-    dump(prodinfo->ssl_cert, prodinfo->ssl_cert_size, "ssl_cert");
+    dump(&prodinfo->ssl_cert, prodinfo->ssl_cert_size, "ssl_cert");
 }
 
 void dump_ssl_cert_hash()
@@ -270,3 +273,23 @@ void dump_rsa_2048_device_cert(prodinfo_t *prodinfo)
 {
     dump(prodinfo->rsa_2048_device_cert, 0x240, "rsa_2048_device_cert");
 }
+
+
+/*
+*   Replace.
+*/
+
+void replace_ssl_cert(prodinfo_t *prodinfo)
+{
+    
+}
+
+void replace_extended_ssl_key(prodinfo_t *prodinfo)
+{}
+
+/*void replace_ssl_key(prodinfo_t *prodinfo)
+{}
+
+void replace_ssl_key(prodinfo_t *prodinfo)
+{}
+*/

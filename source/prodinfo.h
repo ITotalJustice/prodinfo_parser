@@ -36,7 +36,17 @@ typedef struct
     uint8_t _0xD8[0x2C];            // empty.
     uint8_t _0x104[0x40];           // unkown.
     uint8_t _0x144[0x3C];           // unkown.
-} eec_b233_device_cert_t;
+} ecc_b233_device_cert_t;
+
+typedef struct
+{
+    uint8_t data[0x800];
+} ssl_cert_t;
+
+typedef struct
+{
+    uint8_t data[0x800];
+} extended_ssl_key_t;
 
 typedef struct
 {
@@ -78,7 +88,7 @@ typedef struct
     uint8_t _0x0430[0x10];
     uint8_t ecc_b233_device_key[0x30];
     uint8_t _0x0470[0x10];
-    eec_b233_device_cert_t eec_b233_device_cert;
+    ecc_b233_device_cert_t ecc_b233_device_cert;
     uint8_t _0x0600[0x10];
     uint8_t ecc_p256_etik_key[0x30];
     uint8_t _0x0640[0x10];
@@ -93,7 +103,7 @@ typedef struct
     uint8_t _0x0AC0[0x10];
     uint32_t ssl_cert_size;
     uint8_t _0x04AD4[0xC];
-    uint8_t ssl_cert[0x800];
+    ssl_cert_t ssl_cert;
     uint8_t ssl_cert_hash[0x20];
 
     uint8_t random_num[0x1000];
@@ -199,7 +209,7 @@ typedef struct
 bool check_if_cal_magic_valid(uint32_t magic);
 
 //
-void read_prodinfo(prodinfo_t *prodinfo, const char *file);
+prodinfo_t * read_prodinfo(const char *file);
 
 //
 void display_device_id(prodinfo_t *prodinfo);
